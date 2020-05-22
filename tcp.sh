@@ -614,7 +614,7 @@ check_status(){
 		fi
 	fi
 
-	elif [[ ${kernel_status} == "BBRplus" ]]; then
+	if [[ ${kernel_status} == "BBRplus" ]]; then
 		run_status=`cat /proc/sys/net/ipv4/tcp_congestion_control | awk '{print $1}'`
 		if [[ ${run_status} == "bbrplus" ]]; then
 			run_status=`cat /proc/sys/net/ipv4/tcp_congestion_control | awk '{print $1}'`
