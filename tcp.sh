@@ -2,10 +2,10 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
-#	Version: 1.0.3
+#	Version: 1.0.4
 #	Author: 千影,cx9208,YLX,potter
 
-sh_ver="1.0.3"
+sh_ver="1.0.4"
 github="raw.githubusercontent.com/Potterli20/Linux-NetSpeed/master"
 
 Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
@@ -43,11 +43,14 @@ installbbr(){
 #安装BBRplus内核(chiakge)
 installbbrpluschiakge(){
 	kernel_version="4.14.129-bbrplus"
+	bit=`uname -m`
 	if [[ "${release}" == "centos" ]]; then
+		mkdir bbrplus && cd bbrplus
 		wget -N --no-check-certificate github.com/chiakge/Linux-NetSpeed/raw/master/bbrplus/${release}/${version}/kernel-${kernel_version}.rpm
 		yum install -y kernel-${kernel_version}.rpm
 		rm -f kernel-${kernel_version}.rpm
 		kernel_version="4.14.129_bbrplus" #fix a bug
+		cd .. && rm -rf bbrplus
 	elif [[ "${release}" == "debian" || "${release}" == "ubuntu" ]]; then
 		mkdir bbrplus && cd bbrplus
 		wget -N --no-check-certificate github.com/chiakge/Linux-NetSpeed/raw/master/bbrplus/debian-ubuntu/${bit}/linux-headers-${kernel_version}.deb
@@ -70,11 +73,14 @@ installbbrpluschiakge(){
 #安装BBRplus内核(ylx2016)
 installbbrplusylx2016(){
 	kernel_version="4.14.160-bbrplus"
+	bit=`uname -m`
 	if [[ "${release}" == "centos" ]]; then
+		mkdir bbrplus && cd bbrplus
 		wget -N --no-check-certificate https://github.com/ylx2016/Linux-NetSpeed/raw/master/bbrplus/${release}/${version}/kernel-${kernel_version}.rpm
 		yum install -y kernel-${kernel_version}.rpm
 		rm -f kernel-${kernel_version}.rpm
-		kernel_version="4.14.160_bbrplus" #fix a bug
+		kernel_version="4.14.160_bbrplus" 
+		cd .. && rm -rf bbrplus
 	elif [[ "${release}" == "debian" || "${release}" == "ubuntu" ]]; then
 		mkdir bbrplus && cd bbrplus
 		wget -N --no-check-certificate https://github.com/ylx2016/Linux-NetSpeed/raw/master/bbrplus/debian-ubuntu/${bit}/linux-headers-${kernel_version}.deb
@@ -563,7 +569,7 @@ check_sys_bbrplus(){
 			echo -e "${Error} BBRplus内核不支持当前系统 ${release} ${version} ${bit} !" && exit 1
 		fi
 	elif [[ "${release}" == "ubuntu" ]]; then
-		if [[ ${version} = "16" || ${version} = "18" || ${version} = "19" ]]; then
+		if [[ ${version} = "16" || ${version} = "18" || ${version} = "19" || ${version} = "20" ]]; then
 			installbbrplus
 		else
 			echo -e "${Error} BBRplus内核不支持当前系统 ${release} ${version} ${bit} !" && exit 1
@@ -582,7 +588,11 @@ check_sys_xanmod(){
 			echo -e "${Error} xanmod内核不支持当前系统 ${release} ${version} ${bit} !" && exit 1
 		fi
 	elif [[ "${release}" == "ubuntu" ]]; then
-			echo -e "${Error} xanmod内核不支持当前系统 ${release} ${version} ${bit} ,去xanmod.org 官网安装吧!" && exit 1
+		if [[ ${version} = "16" || ${version} = "18" || ${version} = "19" || ${version} = "20" ]]; then
+			installbbrplus
+		else
+			echo -e "${Error} xanmod内核不支持当前系统 ${release} ${version} ${bit} !" && exit 1
+		fi
 	else
 		echo -e "${Error} xanmod内核不支持当前系统 ${release} ${version} ${bit} !" && exit 1
 	fi
