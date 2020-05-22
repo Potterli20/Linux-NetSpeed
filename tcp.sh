@@ -2,10 +2,10 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
-#	Version: 1.0.2
+#	Version: 1.0.3
 #	Author: 千影,cx9208,YLX,potter
 
-sh_ver="1.0.2"
+sh_ver="1.0.3"
 github="raw.githubusercontent.com/Potterli20/Linux-NetSpeed/master"
 
 Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
@@ -41,7 +41,7 @@ installbbr(){
 }
 
 #安装BBRplus内核(chiakge)
-installbbrplus-chiakge(){
+installbbrpluschiakge(){
 	kernel_version="4.14.129-bbrplus"
 	if [[ "${release}" == "centos" ]]; then
 		wget -N --no-check-certificate github.com/chiakge/Linux-NetSpeed/raw/master/bbrplus/${release}/${version}/kernel-${kernel_version}.rpm
@@ -68,7 +68,7 @@ installbbrplus-chiakge(){
 }
 
 #安装BBRplus内核(ylx2016)
-installbbrplus-ylx2016(){
+installbbrplusylx2016(){
 	kernel_version="4.14.160-bbrplus"
 	if [[ "${release}" == "centos" ]]; then
 		wget -N --no-check-certificate https://github.com/ylx2016/Linux-NetSpeed/raw/master/bbrplus/${release}/${version}/kernel-${kernel_version}.rpm
@@ -94,8 +94,8 @@ installbbrplus-ylx2016(){
 	fi
 }
 
-#安装xamnod内核(debian)
-installxamod(){
+#安装xanmod内核(debian and ubuntu)
+installxanmod(){
 	if [[ "${release}" == "debian" || "${release}" == "ubuntu" ]]; then
 		echo 'deb http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-kernel.list && wget -qO - https://dl.xanmod.org/gpg.key | sudo apt-key add -
 		sudo apt update && sudo apt install linux-xanmod
@@ -376,13 +376,13 @@ case "$num" in
 	check_sys_bbr
 	;;
 	2)
-	check_sys_bbrplus-chiakge
+	check_sys_bbrpluschiakge
 	;;
 	3)
-	check_sys_bbrplus-ylx2016
+	check_sys_bbrplusylx2016
 	;;
 	4)
-	check_sys_xamnod
+	check_sys_xanmod
 	;;
 	5)
 	startbbr
