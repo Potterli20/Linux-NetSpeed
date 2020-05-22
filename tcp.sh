@@ -2,10 +2,10 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
-#	Version: 1.0.4
+#	Version: 1.0.5
 #	Author: 千影,cx9208,YLX,potter
 
-sh_ver="1.0.4"
+sh_ver="1.0.5"
 github="raw.githubusercontent.com/Potterli20/Linux-NetSpeed/master"
 
 Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
@@ -589,7 +589,7 @@ check_sys_xanmod(){
 		fi
 	elif [[ "${release}" == "ubuntu" ]]; then
 		if [[ ${version} = "16" || ${version} = "18" || ${version} = "19" || ${version} = "20" ]]; then
-			installbbrplus
+			installxanmod
 		else
 			echo -e "${Error} xanmod内核不支持当前系统 ${release} ${version} ${bit} !" && exit 1
 		fi
